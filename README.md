@@ -18,7 +18,7 @@
 | 站点 | 域名 |
 | --- | --- |
 | 信友队 | `xinyoudui.com`、`ac.xinyoudui.com` |
-| 英行OJ（信星社 / Hydro） | `yingxing.club`、`*.yingxing.club` |
+| 英行OJ / 信星社（Hydro） | `yingxing.club`、`*.yingxing.club`、`xinxingshe.cn`、`oj.xinxingshe.cn` |
 
 ## 安装
 

@@ -1,18 +1,20 @@
 // ==UserScript==
 // @name         ToLG - 洛谷原题查找
 // @namespace    https://github.com/charlielix/ToLuogu
-// @version      10.8
+// @version      10.9
 // @author       charlielix
 // @license      MIT
 // @homepageURL  https://github.com/charlielix/ToLuogu
 // @supportURL   https://github.com/charlielix/ToLuogu/issues
 // @downloadURL  https://raw.githubusercontent.com/charlielix/ToLuogu/main/main.js
 // @updateURL    https://raw.githubusercontent.com/charlielix/ToLuogu/main/main.js
-// @description  提取题面后按优先级依次尝试：①标题搜索 + 模型从候选挑选 ②完整题面交给模型给题号 ③洛谷题面全文搜索（content=true）。模型/地址/Key 可在脚本菜单里自定义。英行OJ 另有专注模式：隐藏侧栏，递交/在线编程移到标签栏，并可一键复制题面 Markdown
+// @description  提取题面后按优先级依次尝试：①标题搜索 + 模型从候选挑选 ②完整题面交给模型给题号 ③洛谷题面全文搜索（content=true）。模型/地址/Key 可在脚本菜单里自定义。英行OJ / 信星社（含 oj.xinxingshe.cn）另有专注模式：隐藏侧栏，递交/在线编程移到标签栏，并可一键复制题面 Markdown
 // @match        *://www.xinyoudui.com/ac/contest/*/problem/*
 // @match        *://ac.xinyoudui.com/*
 // @match        *://yingxing.club/*
 // @match        *://*.yingxing.club/*
+// @match        *://xinxingshe.cn/*
+// @match        *://*.xinxingshe.cn/*
 // @grant        GM_xmlhttpRequest
 // @grant        GM_getValue
 // @grant        GM_setValue
@@ -27,7 +29,7 @@
 (function() {
     'use strict';
 
-    console.log('[OJ→洛谷] 脚本启动 v10.8');
+    console.log('[OJ→洛谷] 脚本启动 v10.9');
 
     // ========== 设置：模型 / API 配置 ==========
     const DEFAULT_MODEL = 'deepseek-chat';
@@ -239,8 +241,8 @@
     }
 
     // ========== 站点识别 ==========
-    // 信友队（xinyoudui.com）与英行OJ（信星社 / Hydro，yingxing.club）的 DOM 完全不同
-    const SITE = /(^|\.)yingxing\.club$/i.test(location.hostname) ? 'xinxingshe' : 'xinyoudui';
+    // 信友队（xinyoudui.com）与 Hydro 系站点（英行OJ / 信星社：yingxing.club、xinxingshe.cn）的 DOM 完全不同
+    const SITE = /(^|\.)(yingxing\.club|xinxingshe\.cn)$/i.test(location.hostname) ? 'xinxingshe' : 'xinyoudui';
 
     function getTitleSelector() {
         return SITE === 'xinxingshe'
@@ -297,7 +299,7 @@
         return { title, statement: normalizeStatement(fullText) };
     }
 
-    // ========== 提取题面：英行OJ（信星社 / Hydro） ==========
+    // ========== 提取题面：英行OJ / 信星社（Hydro） ==========
     function readXinxingsheContext() {
         const raw = window.UiContextNew
             || (window.XinXingSheHydroBootstrap && window.XinXingSheHydroBootstrap.UiContextNew);
