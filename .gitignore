@@ -1,0 +1,10 @@
+# 本地密钥，不要提交
+api.key
+*.key
+
+# 含个人信息的页面快照（仅本地调试用）
+new.html
+
+# 系统与依赖
+.DS_Store
+node_modules/
